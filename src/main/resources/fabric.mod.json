@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "A very awesome Hypixel SkyBlock mod.",
+  "authors": [
+    "Starred"
+  ],
+  "contact": {},
+  "license": "BSD 3-Clause",
+  "icon": "assets/jec/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      {
+        "value": "xyz.aerii.jec.JEC",
+        "adapter": "kotlin"
+      }
+    ]
+  },
+  "mixins": [
+    "${id}.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18",
+    "fabric-api": "*",
+    "fabric-language-kotlin": ">=${kotlin}",
+    "minecraft": "${minecraft}"
+  },
+  "accessWidener": "${accessWidener}"
+}

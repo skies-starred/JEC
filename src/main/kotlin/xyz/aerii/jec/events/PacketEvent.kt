@@ -1,0 +1,14 @@
+package xyz.aerii.jec.events
+
+import net.minecraft.network.protocol.Packet
+import xyz.aerii.jec.events.core.CancellableEvent
+
+sealed class PacketEvent(open val packet: Packet<*>) : CancellableEvent() {
+    data class Receive(
+        override val packet: Packet<*>
+    ) : PacketEvent(packet)
+
+    data class Send(
+        override val packet: Packet<*>
+    ) : PacketEvent(packet)
+}
