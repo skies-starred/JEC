@@ -6,10 +6,61 @@ import com.teamresourceful.resourcefulconfig.api.types.options.TranslatableValue
 import com.teamresourceful.resourcefulconfigkt.api.CategoryKt
 import xyz.aerii.jec.config.other.CatSounds
 import xyz.aerii.jec.config.react
+import xyz.aerii.jec.modules.impl.sounds.SoundReplacer
 
 object SoundsCategory : CategoryKt("Sounds") {
     override val description: TranslatableValue
         get() = TranslatableValue.literal("Plays and changes sounds for various things in-game.")
+
+    init {
+        separator {
+            title = "Sound replacer"
+        }
+    }
+
+    var replaceSounds by boolean(false) {
+        name = Literal("Replace all sounds")
+        description = Literal("Replaces all sounds with the selected cat sound!")
+    }.react()
+
+    var replacedSound by observable(enum(CatSounds.PURREOW) {
+        name = Literal("Sound to replace with")
+        description = Literal("The sound to replace other sounds with.")
+    }) { old, new ->
+        if ((old == CatSounds.RANDOM && new != CatSounds.RANDOM) || (old != CatSounds.RANDOM && new == CatSounds.RANDOM)) SoundReplacer.map.clear()
+    }
+
+    var randomiseEvery by boolean(false) {
+        name = Literal("Randomise everytime")
+        description = Literal("Randomises the sound everytime when it plays. Only affects anything if \"Random\" is selected in the Replaced Sound.")
+    }
+
+    var randomiseWorld by boolean(true) {
+        name = Literal("Re-randomise sounds")
+        description = Literal("Re-randomises the sounds on world change. Only affects anything if \"Random\" is selected in the Replaced Sound.")
+    }
+
+    var replacedSoundVolume by int(10) {
+        name = Literal("Replaced sound volume")
+        description = Literal("The volume for the replaced sound to play at. Ignored if random is selected.")
+
+        range = 1..10
+        slider = true
+    }
+
+    var replacedSoundPitch by int(10) {
+        name = Literal("Replaced sound pitch")
+        description = Literal("The pitch for the replaced sound to play at. Ignored if random is selected.")
+
+        range = 1..10
+        slider = true
+    }
+
+    init {
+        separator {
+            title = "Kill sounds"
+        }
+    }
 
     var killSounds by boolean(false) {
         name = Literal("Kill sounds")

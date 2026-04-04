@@ -5,7 +5,9 @@ import net.minecraft.sounds.SoundEvent
 import xyz.aerii.jec.config.categories.SoundsCategory
 import xyz.aerii.jec.utils.play
 
-enum class CatSounds(val ins: SoundEvent) {
+enum class CatSounds(val ins: SoundEvent?) {
+    RANDOM(null),
+
     AMBIENT(SoundEvent.createVariableRangeEvent(ResourceLocation.withDefaultNamespace("entity.cat.ambient"))),
     EAT(SoundEvent.createVariableRangeEvent(ResourceLocation.withDefaultNamespace("entity.cat.eat"))),
     HISS(SoundEvent.createVariableRangeEvent(ResourceLocation.withDefaultNamespace("entity.cat.hiss"))),
@@ -22,11 +24,20 @@ enum class CatSounds(val ins: SoundEvent) {
         play(SoundsCategory.killSoundVolume, SoundsCategory.killSoundPitch)
     }
 
+    fun pr() {
+        play(SoundsCategory.replacedSoundVolume, SoundsCategory.replacedSoundPitch)
+    }
+
     private fun play(volume: Int, pitch: Int) {
-        (ins).play(volume / 10f, pitch / 10f)
+        (ins ?: purreow).play(volume / 10f, pitch / 10f)
     }
 
     override fun toString(): String {
         return name.lowercase().replaceFirstChar { it.uppercase() }
+    }
+
+    companion object {
+        val purreow: SoundEvent = SoundEvent.createVariableRangeEvent(ResourceLocation.withDefaultNamespace("entity.cat.purreow"))
+        val all: List<CatSounds> = entries.filter { it != RANDOM }
     }
 }
