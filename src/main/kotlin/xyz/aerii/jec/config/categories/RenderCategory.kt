@@ -72,6 +72,11 @@ object RenderCategory : CategoryKt("Render") {
         description = Literal("Enable to scale cat models!")
     }
 
+    var catScaleNametag by boolean(true) {
+        name = Literal("Scale player nametags")
+        description = Literal("Whether to scale the player nametag's y level to match the model's y level.")
+    }
+
     var catScaleX by float(1f) {
         name = Literal("Cat scale X")
         description = Literal("The X scale for the cat model.")

@@ -83,6 +83,11 @@ public class LivingEntityRendererMixin {
         final boolean d = ((PlayerAccessor) c).jec$scale();
         if (!d) return;
 
-        b.scale(RenderCategory.INSTANCE.getCatScaleX(), RenderCategory.INSTANCE.getCatScaleY(), RenderCategory.INSTANCE.getCatScaleZ());
+        final float x = RenderCategory.INSTANCE.getCatScaleX();
+        final float y = RenderCategory.INSTANCE.getCatScaleY();
+        final float z = RenderCategory.INSTANCE.getCatScaleZ();
+
+        b.scale(x, y, z);
+        if (RenderCategory.INSTANCE.getCatScaleNametag()) if (a.nameTagAttachment != null) a.nameTagAttachment = a.nameTagAttachment.multiply(1.0, y, 1.0);
     }
 }
