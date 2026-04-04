@@ -120,13 +120,10 @@ object CatModels : Module(RenderCategory.catModel) {
 
     @JvmStatic
     fun fn1(a: Player): Boolean {
-        if (a is LocalPlayer && RenderCategory.catBabySelf) return true
+        if (a is LocalPlayer) return RenderCategory.catBabySelf
+        if (a.uuid.version() == 4) return RenderCategory.catBabyOthers
 
-        val v = a.uuid.version() == 4
-        if (v && RenderCategory.catBabyOthers) return true
-        if (!v && RenderCategory.catBabyNpc) return true
-
-        return false
+        return RenderCategory.catBabyNpc
     }
 
     @JvmStatic
@@ -136,13 +133,10 @@ object CatModels : Module(RenderCategory.catModel) {
 
     @JvmStatic
     fun fn3(a: Player): Boolean {
-        if (a is LocalPlayer && RenderCategory.self) return true
+        if (a is LocalPlayer) return RenderCategory.self
+        if (a.uuid.version() == 4) return RenderCategory.others
 
-        val v = a.uuid.version() == 4
-        if (v && RenderCategory.others) return true
-        if (!v && RenderCategory.npc) return true
-
-        return false
+        return RenderCategory.npc
     }
 
     @JvmStatic
@@ -155,13 +149,10 @@ object CatModels : Module(RenderCategory.catModel) {
 
     @JvmStatic
     fun fn5(a: Player): Boolean {
-        if (a is LocalPlayer && RenderCategory.catScaleSelf) return true
+        if (a is LocalPlayer) return RenderCategory.catScaleSelf
+        if (a.uuid.version() == 4) return  RenderCategory.catScaleOthers
 
-        val v = a.uuid.version() == 4
-        if (v && RenderCategory.catScaleOthers) return true
-        if (!v && RenderCategory.catScaleNpc) return true
-
-        return false
+        return RenderCategory.catScaleNpc
     }
 
     @JvmStatic
