@@ -18,7 +18,12 @@ object CatFacts : Module(MiscCategory.randomCatFact) {
     private var task: Chronos.Task? = null
 
     init {
-        task = Chronos.Time every MiscCategory.randomCatFactDelay.value.minutes repeat ::fn
+        if (enabled) task = Chronos.Time every MiscCategory.randomCatFactDelay.value.minutes repeat ::fn
+
+        MiscCategory.randomCatFact.onChange {
+            if (!it) task?.cancel()
+            else task = Chronos.Time every MiscCategory.randomCatFactDelay.value.minutes repeat ::fn
+        }
 
         MiscCategory.randomCatFactDelay.onChange {
             task?.cancel()
