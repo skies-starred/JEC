@@ -13,7 +13,7 @@ import xyz.aerii.jec.events.LocationEvent
 import xyz.aerii.jec.events.MessageEvent
 import xyz.aerii.jec.events.PacketEvent
 import xyz.aerii.jec.events.core.on
-import xyz.aerii.jec.utils.mainThread
+import xyz.aerii.library.api.mainThread
 
 @Load
 object EventDispatcher {

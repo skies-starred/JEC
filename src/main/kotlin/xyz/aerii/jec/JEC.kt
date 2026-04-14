@@ -6,20 +6,16 @@ import com.teamresourceful.resourcefulconfig.api.client.ResourcefulConfigScreen
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
-import net.minecraft.network.chat.ClickEvent
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.HoverEvent
-import net.minecraft.network.chat.Style
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import xyz.aerii.jec.annotations.AnnotationLoader
 import xyz.aerii.jec.events.LocationEvent
 import xyz.aerii.jec.events.core.on
 import xyz.aerii.jec.handlers.Scribble
-import xyz.aerii.jec.utils.client
-import xyz.aerii.jec.utils.lie
-import xyz.aerii.jec.utils.nextTick
-import java.net.URI
+import xyz.aerii.jec.utils.message
+import xyz.aerii.library.api.client
+import xyz.aerii.library.api.nextTick
+import xyz.aerii.library.handlers.parser.parse
 
 object JEC : ClientModInitializer {
     const val modVersion: String = /*$ mod_version*/ "0.0.1"
@@ -56,31 +52,17 @@ object JEC : ClientModInitializer {
     }
 
     private fun li() {
-        "§7----------------------------------------------".lie()
-        "§7- §rThanks for downloading §d[JEC] §8[v$modVersion]§r!".lie()
-        "§7----------------------------------------------".lie()
-        "§7- §rQuick start:".lie()
-        "§7 > §r/jec §7- §rOpens the Config GUI".lie()
-        "§7 > §r/jec fact §7- §rSends a random cat fact".lie()
-        "§7 > §r/jec model help §7- §rShows info about custom models".lie()
-        "§7----------------------------------------------".lie()
-        Component.literal("§d[JEC] §fNeed help or want to suggest features? Click to join the Discord!")
-            .withStyle(
-                Style.EMPTY
-                    .withClickEvent(ClickEvent.OpenUrl(URI(discordUrl)))
-                    .withHoverEvent(HoverEvent.ShowText(Component.literal("Click to join!").withStyle(Style.EMPTY.withColor(0xFFC4B5FD.toInt()))))
-                    .withUnderlined(true)
-            )
-            .lie()
-        "§7----------------------------------------------".lie()
-        Component.literal("§d[JEC] §fLove the mod? You can support future updates and similar projects with a donation!")
-            .withStyle(
-                Style.EMPTY
-                    .withClickEvent(ClickEvent.OpenUrl(URI("https://aerii.xyz/donate/")))
-                    .withHoverEvent(HoverEvent.ShowText(Component.literal("Click to open page!").withStyle(Style.EMPTY.withColor(0xFFC4B5FD.toInt()))))
-                    .withUnderlined(true)
-            )
-            .lie()
-        "§7----------------------------------------------".lie()
+        "§7----------------------------------------------".message()
+        "§7- §rThanks for downloading §d[JEC] §8[v$modVersion]§r!".message()
+        "§7----------------------------------------------".message()
+        "§7- §rQuick start:".message()
+        "§7 > §r/jec §7- §rOpens the Config GUI".message()
+        "§7 > §r/jec fact §7- §rSends a random cat fact".message()
+        "§7 > §r/jec model help §7- §rShows info about custom models".message()
+        "§7----------------------------------------------".message()
+        "<click:url:$discordUrl><hover:Click to join!>Need help or want to suggest features? Click to join the <red>Discord<r>!".parse().message()
+        "§7----------------------------------------------".message()
+        "<click:url:https://aerii.xyz/donate/><hover:Click to open page!>Love the mod? You can support future updates and similar projects with a donation!".message()
+        "§7----------------------------------------------".message()
     }
 }

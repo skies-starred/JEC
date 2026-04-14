@@ -1,7 +1,7 @@
 package xyz.aerii.jec.annotations
 
 import io.github.classgraph.ClassGraph
-import xyz.aerii.jec.utils.safely
+import xyz.aerii.library.utils.safely
 
 object AnnotationLoader {
     fun load() {

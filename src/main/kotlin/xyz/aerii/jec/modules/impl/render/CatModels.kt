@@ -14,10 +14,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.LivingEntityRenderer
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState
 import net.minecraft.client.renderer.texture.DynamicTexture
-import net.minecraft.network.chat.ClickEvent
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.HoverEvent
-import net.minecraft.network.chat.Style
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -30,11 +26,12 @@ import xyz.aerii.jec.config.other.CatVariant
 import xyz.aerii.jec.events.GameEvent
 import xyz.aerii.jec.handlers.Scribble
 import xyz.aerii.jec.modules.Module
-import xyz.aerii.jec.utils.client
-import xyz.aerii.jec.utils.lie
-import xyz.aerii.jec.utils.safely
+import xyz.aerii.jec.utils.message
+import xyz.aerii.library.api.client
+import xyz.aerii.library.api.lie
+import xyz.aerii.library.handlers.parser.parse
+import xyz.aerii.library.utils.safely
 import java.io.File
-import java.net.URI
 
 @Load
 object CatModels : Module(RenderCategory.catModel) {
@@ -58,10 +55,10 @@ object CatModels : Module(RenderCategory.catModel) {
             for ((_, fn) in custom.value) {
                 safely {
                     val i = ResourceLocation.parse(fn)
-                    if (i.namespace != JEC.modId) return@safely
+                    if (i.namespace != JEC.modId) return@safely null
 
                     val f = File(FabricLoader.getInstance().configDir.toFile(), "jec/textures/${i.path}")
-                    if (!f.exists()) return@safely
+                    if (!f.exists()) return@safely null
 
                     client.textureManager.register(i, DynamicTexture({ i.path }, NativeImage.read(f.inputStream())))
                 }
@@ -92,15 +89,7 @@ object CatModels : Module(RenderCategory.catModel) {
                     )
                 )
                 .then(literal("help").executes {
-                    Component.literal("§d[JEC] §7- §fYou can use https://minecraft.novaskin.me/resourcepacks#default/ to design your cat texture.").withStyle(
-                        Style.EMPTY
-                            .withClickEvent(
-                                ClickEvent.OpenUrl(URI("https://minecraft.novaskin.me/resourcepacks#default/"))
-                            )
-                            .withHoverEvent(
-                                HoverEvent.ShowText(Component.literal("Click to open page!").withStyle(Style.EMPTY.withColor(0xFFC4B5FD.toInt())))
-                            )
-                    ).lie()
+                    "<click:url:https://minecraft.novaskin.me/resourcepacks#default/><hover:Click to open page!>§7- §fYou can use https://minecraft.novaskin.me/resourcepacks#default/ to design your cat texture.".parse().lie()
                     "§7- §fPut the custom texture file at the File Path.".lie()
                     "§7- §fYou can also use one of the default textures.".lie()
                     "§7- §fPut the name of the player that you want to change.".lie()
@@ -163,20 +152,20 @@ object CatModels : Module(RenderCategory.catModel) {
     private fun fno(u: String, fn: String) {
         try {
             if (fn in set) {
-                val c = CatVariant.all.find { it.name.lowercase() == fn }?.identifier ?: return "Variant not found!".lie()
+                val c = CatVariant.all.find { it.name.lowercase() == fn }?.identifier ?: return "Variant not found!".message()
                 custom.update { put(u.lowercase(), "$c") }
 
-                return "Loaded texture for $u successfully! Change worlds for it to take effect.".lie()
+                return "Loaded texture for $u successfully! Change worlds for it to take effect.".message()
             }
 
             val f = File(FabricLoader.getInstance().configDir.toFile(), "jec/textures/$fn")
-            if (!f.exists()) return "No texture found at §c${f.path}§r!".lie()
+            if (!f.exists()) return "No texture found at §c${f.path}§r!".message()
 
             val r = ResourceLocation.fromNamespaceAndPath(JEC.modId, fn)
             client.textureManager.register(r, DynamicTexture({ fn }, NativeImage.read(f.inputStream())))
 
             custom.update { put(u.lowercase(), "$r") }
-            "Loaded texture for $u successfully! Change worlds for it to take effect.".lie()
+            "Loaded texture for $u successfully! Change worlds for it to take effect.".message()
         } catch (e: Exception) {
             JEC.LOGGER.error("Error loading texture: ${e.message}")
         }

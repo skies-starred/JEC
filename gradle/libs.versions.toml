@@ -20,6 +20,7 @@ modmenu-26-1 = "18.0.0-alpha.8"
 parchment-1-21-10 = "2025.10.12"
 parchment-1-21-11 = "2025.12.20"
 
+library = "efa27370e6"
 classgraph = "4.8.184"
 autoupdate = "1.3.1"
 
@@ -43,6 +44,10 @@ fabric-api-26-1 = { module = "net.fabricmc.fabric-api:fabric-api", version.ref =
 modmenu-1-21-10 = { module = "com.terraformersmc:modmenu", version.ref = "modmenu-1-21-10" }
 modmenu-1-21-11 = { module = "com.terraformersmc:modmenu", version.ref = "modmenu-1-21-11" }
 modmenu-26-1 = { module = "com.terraformersmc:modmenu", version.ref = "modmenu-26-1" }
+
+library-1-21-10 = { module = "com.github.skies-starred.library:library-1.21.10", version.ref = "library" }
+library-1-21-11 = { module = "com.github.skies-starred.library:library-1.21.11", version.ref = "library" }
+library-26-1 = { module = "com.github.skies-starred.library:library-26.1", version.ref = "library" }
 
 parchment-1-21-10 = { module = "org.parchmentmc.data:parchment-1.21.10", version.ref = "parchment-1-21-10" }
 parchment-1-21-11 = { module = "org.parchmentmc.data:parchment-1.21.11", version.ref = "parchment-1-21-11" }

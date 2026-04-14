@@ -2,7 +2,7 @@ package xyz.aerii.jec.config.categories
 
 import com.teamresourceful.resourcefulconfig.api.types.options.TranslatableValue
 import com.teamresourceful.resourcefulconfigkt.api.CategoryKt
-import xyz.aerii.jec.config.react
+import xyz.aerii.jec.config.observe
 import kotlin.text.split
 import kotlin.text.trim
 
@@ -19,7 +19,7 @@ object ChatCategory : CategoryKt("Chat") {
     var autoMeow by boolean(true) {
         name = Literal("Auto-meow")
         description = Literal("Automatically meows back when someone sends a message containing the keywords.")
-    }.react()
+    }.observe()
 
     var autoMeowLooseCheck by boolean(true) {
         name = Literal("Loosely check")
@@ -55,7 +55,7 @@ object ChatCategory : CategoryKt("Chat") {
     var catifyMessages by boolean(false) {
         name = Literal("Cat-ify messages")
         description = Literal("Adds various keywords to your messages.")
-    }.react()
+    }.observe()
 
     private var _catifyWords by observable(string("meow,nya,purr") {
         name = Literal("Catify words")

@@ -8,7 +8,7 @@ import xyz.aerii.jec.config.categories.ChatCategory
 import xyz.aerii.jec.config.categories.MiscCategory
 import xyz.aerii.jec.config.categories.RenderCategory
 import xyz.aerii.jec.config.categories.SoundsCategory
-import xyz.aerii.jec.utils.url
+import xyz.aerii.library.utils.open
 
 @Load
 object Config : ConfigKt("jec/config") {
@@ -27,7 +27,7 @@ object Config : ConfigKt("jec/config") {
             text = "Join"
 
             onClick {
-                JEC.discordUrl.url()
+                JEC.discordUrl.open()
             }
         }
 
@@ -37,7 +37,7 @@ object Config : ConfigKt("jec/config") {
             text = "Open page"
 
             onClick {
-                "https://github.com/skies-starred/jec".url()
+                "https://github.com/skies-starred/jec".open()
             }
         }
 
@@ -47,7 +47,7 @@ object Config : ConfigKt("jec/config") {
             text = "Open page"
 
             onClick {
-                "https://github.com/skies-starred/jec/issues".url()
+                "https://github.com/skies-starred/jec/issues".open()
             }
         }
 
@@ -61,7 +61,7 @@ object Config : ConfigKt("jec/config") {
             text = "Open page"
 
             onClick {
-                "https://modrinth.com/mod/athen".url()
+                "https://modrinth.com/mod/athen".open()
             }
         }
 
@@ -71,7 +71,7 @@ object Config : ConfigKt("jec/config") {
             text = "Open page"
 
             onClick {
-                "https://modrinth.com/mod/roughly-enough-calcs".url()
+                "https://modrinth.com/mod/roughly-enough-calcs".open()
             }
         }
 

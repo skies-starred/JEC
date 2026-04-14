@@ -5,7 +5,7 @@ package xyz.aerii.jec.config.categories
 import com.teamresourceful.resourcefulconfig.api.types.options.TranslatableValue
 import com.teamresourceful.resourcefulconfigkt.api.CategoryKt
 import xyz.aerii.jec.config.other.CatSounds
-import xyz.aerii.jec.config.react
+import xyz.aerii.jec.config.observe
 import xyz.aerii.jec.modules.impl.sounds.SoundReplacer
 
 object SoundsCategory : CategoryKt("Sounds") {
@@ -21,7 +21,7 @@ object SoundsCategory : CategoryKt("Sounds") {
     var replaceSounds by boolean(false) {
         name = Literal("Replace all sounds")
         description = Literal("Replaces all sounds with the selected cat sound!")
-    }.react()
+    }.observe()
 
     var replacedSound by observable(enum(CatSounds.PURREOW) {
         name = Literal("Sound to replace with")
@@ -65,12 +65,12 @@ object SoundsCategory : CategoryKt("Sounds") {
     var killSounds by boolean(false) {
         name = Literal("Kill sounds")
         description = Literal("Plays cat sounds when mobs die!")
-    }.react()
+    }.observe()
 
     var killSoundsCancel by boolean(false) {
         name = Literal("Cancel original kill sounds")
         description = Literal("Cancels the original kill sound that's played when a mob dies if enabled.")
-    }.react()
+    }.observe()
 
     var killSound by enum(CatSounds.HURT) {
         name = Literal("Kill sound")
@@ -111,7 +111,7 @@ object SoundsCategory : CategoryKt("Sounds") {
     var chatSounds by boolean(false) {
         name = Literal("Chat sounds")
         description = Literal("Plays cat sounds when someone sends a message containing specific keywords.")
-    }.react()
+    }.observe()
 
     var chatSound by enum(CatSounds.PURREOW) {
         name = Literal("Chat sound")

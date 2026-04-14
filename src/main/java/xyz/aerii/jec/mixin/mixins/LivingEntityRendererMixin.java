@@ -21,7 +21,7 @@ import xyz.aerii.jec.accessors.PlayerAccessor;
 import xyz.aerii.jec.config.categories.RenderCategory;
 import xyz.aerii.jec.modules.impl.render.CatModels;
 
-import static xyz.aerii.jec.utils.ClientUtilsKt.getClient;
+import static xyz.aerii.library.api.ClientKt.getClient;
 
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin {

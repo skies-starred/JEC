@@ -4,12 +4,12 @@ import xyz.aerii.jec.annotations.Load
 import xyz.aerii.jec.config.categories.ChatCategory
 import xyz.aerii.jec.events.MessageEvent
 import xyz.aerii.jec.modules.Module
-import xyz.aerii.jec.utils.client
-import xyz.aerii.jec.utils.message
+import xyz.aerii.library.api.message
+import xyz.aerii.library.api.name
 
 @Load
 object AutoMeow : Module(ChatCategory.autoMeow) {
-    val r = Regex("\\b${Regex.escape(client.user.name)}\\b")
+    val r = Regex("\\b${Regex.escape(name)}\\b")
 
     init {
         on<MessageEvent.Chat.Receive> {

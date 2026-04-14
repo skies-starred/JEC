@@ -4,7 +4,7 @@ import com.teamresourceful.resourcefulconfig.api.types.options.TranslatableValue
 import com.teamresourceful.resourcefulconfigkt.api.CategoryKt
 import xyz.aerii.jec.config.other.CatCollar
 import xyz.aerii.jec.config.other.CatVariant
-import xyz.aerii.jec.config.react
+import xyz.aerii.jec.config.observe
 
 object RenderCategory : CategoryKt("Render") {
     override val description: TranslatableValue
@@ -19,7 +19,7 @@ object RenderCategory : CategoryKt("Render") {
     var catModel by boolean(false) {
         name = Literal("Cat models")
         description = Literal("Turns player models into cats!")
-    }.react()
+    }.observe()
 
     var catVariant by enum(CatVariant.RANDOM) {
         name = Literal("Cat variant")

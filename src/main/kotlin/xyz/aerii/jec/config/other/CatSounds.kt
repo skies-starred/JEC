@@ -3,7 +3,7 @@ package xyz.aerii.jec.config.other
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.sounds.SoundEvent
 import xyz.aerii.jec.config.categories.SoundsCategory
-import xyz.aerii.jec.utils.play
+import xyz.aerii.library.utils.play
 
 enum class CatSounds(val ins: SoundEvent?) {
     RANDOM(null),

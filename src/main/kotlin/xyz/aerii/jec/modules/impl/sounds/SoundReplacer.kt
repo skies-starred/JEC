@@ -8,7 +8,7 @@ import xyz.aerii.jec.config.other.CatSounds
 import xyz.aerii.jec.events.LocationEvent
 import xyz.aerii.jec.events.SoundPlayEvent
 import xyz.aerii.jec.modules.Module
-import xyz.aerii.jec.utils.play
+import xyz.aerii.library.utils.play
 import java.util.concurrent.ConcurrentHashMap
 
 @Load

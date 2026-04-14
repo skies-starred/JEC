@@ -22,6 +22,7 @@ repositories {
     strictMaven("https://maven.parchmentmc.org/", "org.parchmentmc")
     strictMaven("https://maven.teamresourceful.com/repository/maven-public/", "tech.thatgravyboat", "com.terraformersmc", "earth.terrarium", "com.teamresourceful", "me.owdding")
     //strictMaven("https://repo.nea.moe/releases", "moe.nea")
+    strictMaven("https://jitpack.io", "com.github.skies-starred")
 }
 
 fletchingTable {
@@ -50,6 +51,7 @@ dependencies {
     //shadow(libs.autoupdate)
     shadow("rc".mc(mc))
     shadow("rck".mc(mc))
+    shadow("library".mc(mc))
 }
 
 loom {

@@ -3,7 +3,7 @@ package xyz.aerii.jec.events
 import net.minecraft.network.chat.Component
 import xyz.aerii.jec.events.core.CancellableEvent
 import xyz.aerii.jec.events.core.Event
-import xyz.aerii.jec.utils.stripped
+import xyz.aerii.library.utils.stripped
 
 sealed class MessageEvent {
     sealed class Chat {
