@@ -62,7 +62,7 @@ object JEC : ClientModInitializer {
         "§7----------------------------------------------".message()
         "<click:url:$discordUrl><hover:Click to join!>Need help or want to suggest features? Click to join the <red>Discord<r>!".parse().message()
         "§7----------------------------------------------".message()
-        "<click:url:https://aerii.xyz/donate/><hover:Click to open page!>Love the mod? You can support future updates and similar projects with a donation!".message()
+        "<click:url:https://aerii.xyz/donate/><hover:Click to open page!>Love the mod? You can support future updates and similar projects with a donation!".parse().message()
         "§7----------------------------------------------".message()
     }
 }

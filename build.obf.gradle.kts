@@ -21,7 +21,7 @@ repositories {
     strictMaven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1", "me.djtheredstoner")
     strictMaven("https://maven.parchmentmc.org/", "org.parchmentmc")
     strictMaven("https://maven.teamresourceful.com/repository/maven-public/", "tech.thatgravyboat", "com.terraformersmc", "earth.terrarium", "com.teamresourceful", "me.owdding")
-    //strictMaven("https://repo.nea.moe/releases", "moe.nea")
+    strictMaven("https://repo.nea.moe/releases", "moe.nea")
     strictMaven("https://jitpack.io", "com.github.skies-starred")
 }
 
@@ -48,7 +48,7 @@ dependencies {
     modImplementation(libs.fabric.language.kotlin)
 
     shadow(libs.classgraph)
-    //shadow(libs.autoupdate)
+    shadow(libs.autoupdate)
     shadow("rc".mc(mc))
     shadow("rck".mc(mc))
     shadow("library".mc(mc))

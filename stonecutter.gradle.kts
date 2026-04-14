@@ -19,6 +19,7 @@ stonecutter parameters {
 
         string(current.parsed >= "26.1") {
             replace("ClientCommandManager", "ClientCommands")
+            replace("GuiGraphics", "GuiGraphicsExtractor")
         }
     }
 }
