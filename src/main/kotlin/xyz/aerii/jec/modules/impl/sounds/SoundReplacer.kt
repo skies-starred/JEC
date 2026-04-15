@@ -27,10 +27,10 @@ object SoundReplacer : Module(SoundsCategory.replaceSounds) {
 
             cancel()
 
-            if (SoundsCategory.replacedSound != CatSounds.RANDOM) return@on SoundsCategory.replacedSound.pr()
-            if (SoundsCategory.randomiseEvery) return@on random.play(float, float)
+            if (SoundsCategory.replacedSound != CatSounds.RANDOM) return@on SoundsCategory.replacedSound.pr(x, y, z)
+            if (SoundsCategory.randomiseEvery) return@on random.play(x, y, z, float, float)
 
-            map.getOrPut(location) { Sound(random) }.play()
+            map.getOrPut(location) { Sound(random) }.play(x, y, z)
         }
 
         on<LocationEvent.Server.Connect> {
@@ -42,8 +42,8 @@ object SoundReplacer : Module(SoundsCategory.replaceSounds) {
         val volume: Float = float
         val pitch: Float = float
 
-        fun play() {
-            sound.play(volume, pitch)
+        fun play(x: Double, y: Double, z: Double) {
+            sound.play(x, y, z, volume, pitch)
         }
     }
 }

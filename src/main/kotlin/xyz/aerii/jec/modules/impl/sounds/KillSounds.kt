@@ -13,7 +13,7 @@ object KillSounds : Module(SoundsCategory.killSounds) {
     init {
         on<EntityEvent.Death> {
             if (entity !is LivingEntity) return@on
-            SoundsCategory.killSound.pk()
+            SoundsCategory.killSound.pk(entity.x, entity.y, entity.z)
         }
 
         on<SoundPlayEvent> {

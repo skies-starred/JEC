@@ -20,16 +20,22 @@ enum class CatSounds(val ins: SoundEvent?) {
         play(SoundsCategory.chatSoundVolume, SoundsCategory.chatSoundPitch)
     }
 
-    fun pk() {
-        play(SoundsCategory.killSoundVolume, SoundsCategory.killSoundPitch)
+    fun pk(x: Double, y: Double, z: Double) {
+        if (x == 0.0 && y == 0.0 && z == 0.0) return play(SoundsCategory.killSoundVolume, SoundsCategory.killSoundPitch)
+        play0(x, y, z, SoundsCategory.killSoundVolume, SoundsCategory.killSoundPitch)
     }
 
-    fun pr() {
-        play(SoundsCategory.replacedSoundVolume, SoundsCategory.replacedSoundPitch)
+    fun pr(x: Double, y: Double, z: Double) {
+        if (x == 0.0 && y == 0.0 && z == 0.0) return play(SoundsCategory.replacedSoundVolume, SoundsCategory.replacedSoundPitch)
+        play0(x, y, z, SoundsCategory.replacedSoundVolume, SoundsCategory.replacedSoundPitch)
     }
 
     private fun play(volume: Int, pitch: Int) {
         (ins ?: purreow).play(volume / 10f, pitch / 10f)
+    }
+
+    private fun play0(x: Double, y: Double, z: Double, volume: Int, pitch: Int) {
+        (ins ?: purreow).play(x, y, z, volume / 10f, pitch / 10f)
     }
 
     override fun toString(): String {

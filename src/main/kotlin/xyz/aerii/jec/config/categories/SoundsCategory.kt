@@ -98,7 +98,7 @@ object SoundsCategory : CategoryKt("Sounds") {
             title = "Test sound"
             description = "Click to test the sounds!"
             text = "Play sound"
-            onClick { killSound.pk() }
+            onClick { killSound.pk(0.0, 0.0, 0.0) }
         }
     }
 

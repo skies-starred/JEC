@@ -17,6 +17,6 @@ public class SoundEngineMixin {
         if (!(sound instanceof AbstractSoundInstance)) return;
 
         //~ if >= 1.21.11 '.getLocation()' -> '.getIdentifier()'
-        if (new SoundPlayEvent(sound.getLocation()).post()) cir.setReturnValue(SoundEngine.PlayResult.NOT_STARTED);
+        if (new SoundPlayEvent(sound.getLocation(), sound.getX(), sound.getY(), sound.getZ()).post()) cir.setReturnValue(SoundEngine.PlayResult.NOT_STARTED);
     }
 }
