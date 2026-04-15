@@ -20,7 +20,7 @@ modmenu-26-1 = "18.0.0-alpha.8"
 parchment-1-21-10 = "2025.10.12"
 parchment-1-21-11 = "2025.12.20"
 
-library = "efa27370e6"
+library = "828d719e43"
 classgraph = "4.8.184"
 autoupdate = "1.3.1"
 
