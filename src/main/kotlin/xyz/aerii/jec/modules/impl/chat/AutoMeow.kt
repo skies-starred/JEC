@@ -9,7 +9,8 @@ import xyz.aerii.library.api.name
 
 @Load
 object AutoMeow : Module(ChatCategory.autoMeow) {
-    val r = Regex("\\b${Regex.escape(name)}\\b")
+    private val set = setOf("Guild >" to "/gc", "Party >" to "/pc", "Officer >" to "/oc", "Co-op >" to "/cc", "From " to "/r")
+    private val r = Regex("\\b${Regex.escape(name)}\\b")
 
     init {
         on<MessageEvent.Chat.Receive> {
@@ -26,7 +27,12 @@ object AutoMeow : Module(ChatCategory.autoMeow) {
             if (r.containsMatchIn(s)) return@on
             if (!ChatCategory.autoMeowKeywords.any { if (a) it in s0 else it == s0 }) return@on
 
-            ChatCategory.autoMeowResponses.random().message()
+            ChatCategory.autoMeowResponses.random().fn().message()
         }
+    }
+
+    fun String.fn(): String {
+        for ((k, v) in set) if (startsWith(k)) return "$v $this"
+        return this
     }
 }
