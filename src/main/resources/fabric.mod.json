@@ -10,7 +10,7 @@
   "contact": {},
   "license": "BSD 3-Clause",
   "icon": "assets/jec/icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       {
@@ -28,5 +28,10 @@
     "fabric-language-kotlin": ">=${kotlin}",
     "minecraft": "${minecraft}"
   },
-  "accessWidener": "${accessWidener}"
+  "accessWidener": "${accessWidener}",
+  "custom": {
+    "modmenu": {
+      "update_checker": false
+    }
+  }
 }
