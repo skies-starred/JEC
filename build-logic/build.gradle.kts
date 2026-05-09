@@ -27,9 +27,6 @@
  * SOFTWARE.
  */
 
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     `kotlin-dsl`
 }
@@ -48,10 +45,6 @@ dependencies {
     implementation(libs.plugins.loom.asProvider().provider)
     implementation(libs.plugins.loom.obf.provider)
     implementation("dev.kikugie.stonecutter:dev.kikugie.stonecutter.gradle.plugin:0.9")
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    compilerOptions.freeCompilerArgs.addAll("-Xcontext-parameters", "-Xcontext-sensitive-resolution")
 }
 
 val Provider<PluginDependency>.provider: Provider<String>
