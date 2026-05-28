@@ -14,7 +14,6 @@ import xyz.aerii.jec.events.LocationEvent
 import xyz.aerii.jec.events.core.on
 import xyz.aerii.jec.handlers.Chronos
 import xyz.aerii.jec.utils.message
-import xyz.aerii.library.api.mainThread
 import java.util.concurrent.CompletableFuture
 import kotlin.time.Duration.Companion.seconds
 
@@ -55,19 +54,15 @@ object ModUpdater {
     fun checkAndNotify(stream: String = "release", silent: Boolean = true) {
         checkForUpdate(stream).thenAccept { update ->
             if (!silent && !update.isUpdateAvailable) return@thenAccept "No update available!".message()
-            if (!update.isUpdateAvailable) return@thenAccept println("none")
+            if (!update.isUpdateAvailable) return@thenAccept
 
             val newVersion = update.update.versionName
 
             "Update available: $newVersion".message()
             "Run /${JEC.modId} update to install".message()
 
-            if (newVersion == skippedVersion) return@thenAccept println("Skip")
-            println("Got here")
-            mainThread {
-                println("Opened GUI")
-                UpdateGUI(JEC.modVersion, newVersion, onUpdate = { installUpdate(stream) }, onSkip = { skippedVersion = newVersion }, onRemind = {}).open()
-            }
+            if (newVersion == skippedVersion) return@thenAccept
+            UpdateGUI(JEC.modVersion, newVersion, onUpdate = { installUpdate(stream) }, onSkip = { skippedVersion = newVersion }, onRemind = {}).open()
         }.exceptionally {
             JEC.LOGGER.error("Failed to check for updates: ${it.message}")
             null
