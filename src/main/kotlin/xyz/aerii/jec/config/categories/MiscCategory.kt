@@ -8,6 +8,23 @@ object MiscCategory : CategoryKt("Misc") {
     override val description: TranslatableValue
         get() = TranslatableValue.literal("Miscellaneous changes and additions to the game.")
 
+    init {
+        separator {
+            title = "Cat capes"
+        }
+    }
+
+    var catCapes by boolean(false) {
+        name = Literal("Cat capes")
+        description = Literal("Adds cat capes for your player model!")
+    }.observe()
+
+    init {
+        separator {
+            title = "Cat facts"
+        }
+    }
+
     var randomCatFact by boolean(true) {
         name = Literal("Random cat facts")
         description = Literal("Randomly sends a cat fact in your chat on a set delay. You can also use the command \"/jec fact\"!")

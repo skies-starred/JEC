@@ -3,6 +3,7 @@
 package xyz.aerii.jec.events.core
 
 import net.minecraft.network.protocol.Packet
+import xyz.aerii.jec.events.GameEvent
 import xyz.aerii.jec.events.PacketEvent
 import xyz.aerii.library.handlers.Observable
 
@@ -18,6 +19,7 @@ inline fun <reified E : PacketEvent, reified P : Packet<*>> on(
 
 fun Node<*>.runWhen(state: Observable<Boolean>) = apply {
     if (overridden) return@apply
+    if (GameEvent::class.java.isAssignableFrom(eventClass)) return@apply
     add(state)
 }
 

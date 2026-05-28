@@ -2,8 +2,8 @@ package xyz.aerii.jec.events
 
 import xyz.aerii.jec.events.core.Event
 
-sealed class GameEvent {
-    data object Start : Event()
+sealed class GameEvent : Event() {
+    data object Start : GameEvent()
 
-    data object Stop : Event()
+    data object Stop : GameEvent()
 }
