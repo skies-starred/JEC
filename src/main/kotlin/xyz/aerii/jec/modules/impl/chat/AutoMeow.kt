@@ -12,6 +12,8 @@ object AutoMeow : Module(ChatCategory.autoMeow) {
     private val set = setOf("Guild >" to "/gc", "Party >" to "/pc", "Officer >" to "/oc", "Co-op >" to "/cc", "From " to "/r")
     private val r = Regex("\\b${Regex.escape(name)}\\b")
 
+    private var last: String? = null
+
     init {
         on<MessageEvent.Chat.Receive> {
             if (stripped.isEmpty()) return@on
@@ -25,8 +27,10 @@ object AutoMeow : Module(ChatCategory.autoMeow) {
             val a = ChatCategory.autoMeowLooseCheck
 
             if (r.containsMatchIn(s)) return@on
-            if (!ChatCategory.autoMeowKeywords.any { if (a) it in s0 else it == s0 }) return@on
+            if (!ChatCategory.autoMeowKeywords.any { if (a) it in s0 else it == s0 }) return@on ::last.set(null)
+            if (last == s) return@on
 
+            last = s
             ChatCategory.autoMeowResponses.random().fn().message()
         }
     }
