@@ -1,11 +1,7 @@
 package xyz.aerii.jec.modules.impl.render
 
 import com.mojang.blaze3d.platform.NativeImage
-import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.serialization.Codec
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.geom.ModelPart
@@ -26,6 +22,7 @@ import xyz.aerii.jec.config.other.CatVariant
 import xyz.aerii.jec.events.GameEvent
 import xyz.aerii.jec.handlers.Scribble
 import xyz.aerii.jec.modules.Module
+import xyz.aerii.jec.utils.command
 import xyz.aerii.jec.utils.message
 import xyz.aerii.library.api.client
 import xyz.aerii.library.api.lie
@@ -65,40 +62,24 @@ object CatModels : Module(RenderCategory.catModel) {
             }
         }
 
-        ClientCommandRegistrationCallback.EVENT.register { dispatcher, _ ->
-            dispatcher.register(literal("jec").then(literal("model")
-                .then(literal("load")
-                    .then(ClientCommandManager.argument("user", StringArgumentType.word())
-                        .then(ClientCommandManager.argument("file", StringArgumentType.word())
-                            .suggests { _, builder ->
-                                for (s in set) builder.suggest(s)
+        command {
+            "modal" {
+                "load" / string("user") / string("file") {
+                    fno(string("user"), string("file"))
+                }.suggests {
+                    File(FabricLoader.getInstance().configDir.toFile(), "jec/textures/").listFiles()?.filter { it.isFile }?.map { it.name} ?: emptyList()
+                }
 
-                                val dir = File(FabricLoader.getInstance().configDir.toFile(), "jec/textures/").listFiles() ?: emptyArray()
-                                for (d in dir) if (d.isFile) builder.suggest(d.name)
-
-                                builder.buildFuture()
-                            }
-                            .executes { ctx ->
-                                val user = StringArgumentType.getString(ctx, "user")
-                                val file = StringArgumentType.getString(ctx, "file")
-
-                                fno(user, file)
-                                1
-                            }
-                        )
-                    )
-                )
-                .then(literal("help").executes {
-                    "<click:url:https://minecraft.novaskin.me/resourcepacks#default/><hover:Click to open page!>§7- §fYou can use https://minecraft.novaskin.me/resourcepacks#default/ to design your cat texture.".parse().lie()
-                    "§7- §fPut the custom texture file at the File Path.".lie()
-                    "§7- §fYou can also use one of the default textures.".lie()
-                    "§7- §fPut the name of the player that you want to change.".lie()
-                    "§7----------------------------------------------".lie()
-                    "§7- §fFile path: §c./minecraft/config/jec/textures/".lie()
-                    "§7- §fCommand: /jec model load <username> <fileName>".lie()
-                    1
-                })
-            ))
+                "help" {
+                    "<click:url:https://minecraft.novaskin.me/resourcepacks#default/><hover:Click to open page!><gray>- <white>You can use https://minecraft.novaskin.me/resourcepacks#default/ to design your cat texture.".parse().lie()
+                    "<gray>- <white>Put the custom texture file at the File Path.".parse().lie()
+                    "<gray>- <white>You can also use one of the default textures.".parse().lie()
+                    "<gray>- <white>Put the name of the player that you want to change.".parse().lie()
+                    "<gray>----------------------------------------------".parse().lie()
+                    "<gray>- <white>File path: §c./minecraft/config/jec/textures/".parse().lie()
+                    "<gray>- <white>Command: /jec model load <username> <fileName>".parse().lie()
+                }
+            }
         }
     }
 

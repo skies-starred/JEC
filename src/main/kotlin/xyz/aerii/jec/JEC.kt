@@ -4,14 +4,13 @@ package xyz.aerii.jec
 
 import com.teamresourceful.resourcefulconfig.api.client.ResourcefulConfigScreen
 import net.fabricmc.api.ClientModInitializer
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import xyz.aerii.jec.annotations.AnnotationLoader
 import xyz.aerii.jec.events.LocationEvent
 import xyz.aerii.jec.events.core.on
 import xyz.aerii.jec.handlers.Scribble
+import xyz.aerii.jec.utils.command
 import xyz.aerii.jec.utils.message
 import xyz.aerii.library.api.client
 import xyz.aerii.library.api.nextTick
@@ -41,12 +40,9 @@ object JEC : ClientModInitializer {
             li()
         }
 
-        ClientCommandRegistrationCallback.EVENT.register { d, _ ->
-            literal("jec").executes {
+        command {
+            executes {
                 nextTick { client.setScreen(ResourcefulConfigScreen.getFactory(modId).apply(null)) }
-                1
-            }.apply {
-                d.register(this)
             }
         }
     }
