@@ -64,7 +64,10 @@ repositories {
     strictMaven("https://maven.parchmentmc.org/", "org.parchmentmc")
     strictMaven("https://maven.teamresourceful.com/repository/maven-public/", "tech.thatgravyboat", "com.terraformersmc", "earth.terrarium", "com.teamresourceful", "me.owdding")
     strictMaven("https://repo.nea.moe/releases", "moe.nea")
-    strictMaven("https://jitpack.io", "com.github.skies-starred")
+    strictMaven("https://api.modrinth.com/maven", "maven.modrinth")
+
+    maven("https://maven.starred.foo/releases")
+    maven("https://maven.starred.foo/snapshots")
 }
 
 fletchingTable {
@@ -88,7 +91,7 @@ dependencies {
     shadow("autoupdate".global)
     shadow("rc".versioned)
     shadow("rck".versioned)
-    shadow("library".versioned)
+    shadow("snowbird".versioned)
 
     if (new) return@dependencies
     "mappings"(loom.layered {
