@@ -19,6 +19,8 @@ object AutoMeow : Module(ChatCategory.autoMeow) {
             if (stripped.isEmpty()) return@on
             if (ChatCategory.autoMeowKeywords.isEmpty()) return@on
             if (ChatCategory.autoMeowResponses.isEmpty()) return@on
+            if (stripped.startsWith("To ")) return@on
+
             val c = stripped.indexOf(": ")
             if (c == -1) return@on
 
