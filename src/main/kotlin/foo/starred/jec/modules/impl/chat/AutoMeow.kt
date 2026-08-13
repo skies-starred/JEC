@@ -33,12 +33,12 @@ object AutoMeow : Module(ChatCategory.autoMeow) {
             if (last == s) return@on
 
             last = s
-            ChatCategory.autoMeowResponses.random().fn().message()
+            s.fn(ChatCategory.autoMeowResponses.random()).message()
         }
     }
 
-    fun String.fn(): String {
-        for ((k, v) in set) if (startsWith(k)) return "$v $this"
-        return this
+    fun String.fn(response: String): String {
+        for ((k, v) in set) if (startsWith(k)) return "$v $response"
+        return "/ac $response"
     }
 }
