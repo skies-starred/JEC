@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
 object JEC : ClientModInitializer {
-    const val modVersion: String = /*$ mod_version*/ "0.0.3"
+    const val modVersion: String = /*$ mod_version*/ "0.0.4"
     const val modId: String = /*$ mod_id*/ "jec"
     const val modName: String = /*$ mod_name*/ "JEC"
     const val discordUrl: String = "https://discord.gg/DB5S3DjQVa"
