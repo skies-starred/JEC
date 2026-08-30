@@ -3,7 +3,7 @@ package foo.starred.jec.modules
 import foo.starred.jec.events.PacketEvent
 import foo.starred.jec.events.core.Event
 import foo.starred.jec.events.core.runWhen
-import foo.starred.snowbird.handlers.Observable
+import foo.starred.snowbird.api.data.Observable
 import net.minecraft.network.protocol.Packet
 
 open class Module(

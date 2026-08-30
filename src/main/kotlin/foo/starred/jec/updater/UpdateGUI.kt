@@ -5,10 +5,12 @@ import foo.starred.jec.utils.Catppuccin.Mocha
 import foo.starred.jec.utils.RenderUtils.drawOutline
 import foo.starred.jec.utils.RenderUtils.drawRectangle
 import foo.starred.jec.utils.RenderUtils.text
-import foo.starred.jec.utils.message
+import foo.starred.jec.utils.mod
 import foo.starred.snowbird.api.client
-import foo.starred.snowbird.handlers.minecraft.AbstractScreen
+import foo.starred.snowbird.utils.literal
 import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.gui.screens.Screen
+import net.minecraft.client.input.MouseButtonEvent
 
 class UpdateGUI(
     private val currentVersion: String,
@@ -16,14 +18,14 @@ class UpdateGUI(
     private val onUpdate: () -> Unit,
     private val onSkip: () -> Unit,
     private val onRemind: () -> Unit
-) : AbstractScreen("Update GUI [JEC]") {
+) : Screen("Update GUI [JEC]".literal()) {
     private var booling = false
 
     override fun isPauseScreen(): Boolean {
         return false
     }
 
-    override fun onScramRender(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, delta: Float) {
+    override fun extractRenderState(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
         graphics.drawRectangle(0, 0, width, height, Mocha.Crust.withAlpha(0.6f))
         graphics.drawPanel(mouseX, mouseY, (width - 360) / 2, (height - 175) / 2)
     }
@@ -59,15 +61,15 @@ class UpdateGUI(
         text(label, x + (104 - client.font.width(label)) / 2, y + (22 - client.font.lineHeight) / 2 + 1, false, if (b) Mocha.Base.argb else color)
     }
 
-    override fun onScramMouseClick(mouseX: Int, mouseY: Int, button: Int): Boolean {
-        if (button != 0) return super.onScramMouseClick(mouseX, mouseY, button)
+    override fun mouseClicked(event: MouseButtonEvent, doubleClick: Boolean): Boolean {
+        if (event.button() != 0) return super.mouseClicked(event, doubleClick)
 
         val x = (width - 360) / 2 + 16
         val y = (height - 175) / 2 + 141
 
         fun fn(i: Int): Boolean {
             val xo = x + i * (104 + 8)
-            return mouseX in xo until xo + 104 && mouseY in y until y + 22
+            return event.x().toInt() in xo until xo + 104 && event.y().toInt() in y until y + 22
         }
 
         when {
@@ -83,14 +85,14 @@ class UpdateGUI(
                 }
 
                 onRemind()
-                "Will remind to update for version $newVersion on next launch".message()
+                "Will remind to update for version $newVersion on next launch".mod()
                 onClose()
             }
 
             fn(2) -> {
                 if (booling) {
                     onSkip()
-                    "Skipped update for version $newVersion".message()
+                    "Skipped update for version $newVersion".mod()
                     onClose()
                     return true
                 }
@@ -98,7 +100,7 @@ class UpdateGUI(
                 booling = true
             }
 
-            else -> return super.onScramMouseClick(mouseX, mouseY, button)
+            else -> return super.mouseClicked(event, doubleClick)
         }
 
         return true

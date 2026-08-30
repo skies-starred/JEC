@@ -5,8 +5,9 @@ import foo.starred.jec.JEC
 import foo.starred.jec.annotations.Load
 import foo.starred.jec.events.LocationEvent
 import foo.starred.jec.events.core.on
-import foo.starred.jec.handlers.Chronos
-import foo.starred.jec.utils.message
+import foo.starred.jec.api.scheduling.Scheduler
+import foo.starred.jec.utils.mod
+import foo.starred.snowbird.utils.open
 import moe.nea.libautoupdate.CurrentVersion
 import moe.nea.libautoupdate.PotentialUpdate
 import moe.nea.libautoupdate.UpdateContext
@@ -41,7 +42,7 @@ object ModUpdater {
         }
 
         on<LocationEvent.Server.Connect> {
-            Chronos.schedule(3.seconds) {
+            Scheduler.schedule(3.seconds) {
                 checkAndNotify()
             }
         }.once()
@@ -53,13 +54,13 @@ object ModUpdater {
 
     fun checkAndNotify(stream: String = "release", silent: Boolean = true) {
         checkForUpdate(stream).thenAccept { update ->
-            if (!silent && !update.isUpdateAvailable) return@thenAccept "No update available!".message()
+            if (!silent && !update.isUpdateAvailable) return@thenAccept "No update available!".mod()
             if (!update.isUpdateAvailable) return@thenAccept
 
             val newVersion = update.update.versionName
 
-            "Update available: $newVersion".message()
-            "Run /${JEC.modId} update to install".message()
+            "Update available: $newVersion".mod()
+            "Run /${JEC.modId} update to install".mod()
 
             if (newVersion == skippedVersion) return@thenAccept
             UpdateGUI(JEC.modVersion, newVersion, onUpdate = { installUpdate(stream) }, onSkip = { skippedVersion = newVersion }, onRemind = {}).open()
@@ -72,17 +73,17 @@ object ModUpdater {
     fun installUpdate(stream: String = "release"): CompletableFuture<Boolean> {
         return checkForUpdate(stream).thenCompose { update ->
             if (!update.isUpdateAvailable) {
-                "Already on latest version".message()
+                "Already on latest version".mod()
                 return@thenCompose CompletableFuture.completedFuture(false)
             }
 
-            "Downloading update: ${update.update.versionName}".message()
+            "Downloading update: ${update.update.versionName}".mod()
             update.launchUpdate().thenApply {
-                "Update downloaded! Restart to apply.".message()
+                "Update downloaded! Restart to apply.".mod()
                 true
             }
         }.exceptionally {
-            "Update failed: ${it.message}".message()
+            "Update failed: ${it.message}".mod()
             JEC.LOGGER.error("Failed to install update: ${it.message}")
             false
         }

@@ -9,7 +9,6 @@ object RenderUtils {
     @JvmName("text_string")
     fun GuiGraphicsExtractor.text(text: String, x: Int, y: Int, shadow: Boolean = true, color: Int = -1, center: Boolean = false) {
         val xx = if (center) x - client.font.width(text) / 2 else x
-        //~ if >= 26.1 'drawString(' -> 'text('
         text(client.font, text, xx, y, color, shadow)
     }
 

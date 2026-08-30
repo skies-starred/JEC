@@ -6,12 +6,12 @@ import com.teamresourceful.resourcefulconfig.api.client.ResourcefulConfigScreen
 import foo.starred.jec.annotations.AnnotationLoader
 import foo.starred.jec.events.LocationEvent
 import foo.starred.jec.events.core.on
-import foo.starred.jec.handlers.Scribble
+import foo.starred.jec.api.storage.JsonStore
 import foo.starred.jec.utils.command
-import foo.starred.jec.utils.message
+import foo.starred.jec.utils.mod
 import foo.starred.snowbird.api.client
 import foo.starred.snowbird.api.nextTick
-import foo.starred.snowbird.handlers.parser.parse
+import foo.starred.snowbird.api.text.parser.impl.parse
 import net.fabricmc.api.ClientModInitializer
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -26,7 +26,7 @@ object JEC : ClientModInitializer {
     val LOGGER: Logger = LogManager.getLogger(JEC::class.java)
 
     @JvmStatic
-    val main: Scribble = Scribble("main")
+    val main: JsonStore = JsonStore("main")
 
     @JvmStatic
     var last: String by main.string("last")
@@ -49,17 +49,17 @@ object JEC : ClientModInitializer {
     }
 
     private fun li() {
-        "§7----------------------------------------------".message()
-        "§7- §rThanks for downloading §d[JEC] §8[v$modVersion]§r!".message()
-        "§7----------------------------------------------".message()
-        "§7- §rQuick start:".message()
-        "§7 > §r/jec §7- §rOpens the Config GUI".message()
-        "§7 > §r/jec fact §7- §rSends a random cat fact".message()
-        "§7 > §r/jec model help §7- §rShows info about custom models".message()
-        "§7----------------------------------------------".message()
-        "<click:url:$discordUrl><hover:Click to join!>Need help or want to suggest features? Click to join the <red>Discord<r>!".parse().message()
-        "§7----------------------------------------------".message()
-        "<click:url:https://aerii.xyz/donate/><hover:Click to open page!>Love the mod? You can support future updates and similar projects with a donation!".parse().message()
-        "§7----------------------------------------------".message()
+        "§7----------------------------------------------".mod()
+        "§7- §rThanks for downloading §d[JEC] §8[v$modVersion]§r!".mod()
+        "§7----------------------------------------------".mod()
+        "§7- §rQuick start:".mod()
+        "§7 > §r/jec §7- §rOpens the Config GUI".mod()
+        "§7 > §r/jec fact §7- §rSends a random cat fact".mod()
+        "§7 > §r/jec model help §7- §rShows info about custom models".mod()
+        "§7----------------------------------------------".mod()
+        "<click:url:$discordUrl><hover:Click to join!>Need help or want to suggest features? Click to join the <red>Discord<r>!".parse().mod()
+        "§7----------------------------------------------".mod()
+        "<click:url:https://aerii.xyz/donate/><hover:Click to open page!>Love the mod? You can support future updates and similar projects with a donation!".parse().mod()
+        "§7----------------------------------------------".mod()
     }
 }

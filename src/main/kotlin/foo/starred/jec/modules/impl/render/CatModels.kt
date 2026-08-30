@@ -8,13 +8,13 @@ import foo.starred.jec.config.categories.RenderCategory
 import foo.starred.jec.config.other.CatCollar
 import foo.starred.jec.config.other.CatVariant
 import foo.starred.jec.events.GameEvent
-import foo.starred.jec.handlers.Scribble
+import foo.starred.jec.api.storage.JsonStore
 import foo.starred.jec.modules.Module
 import foo.starred.jec.utils.command
-import foo.starred.jec.utils.message
+import foo.starred.jec.utils.mod
 import foo.starred.snowbird.api.client
 import foo.starred.snowbird.api.lie
-import foo.starred.snowbird.handlers.parser.parse
+import foo.starred.snowbird.api.text.parser.impl.parse
 import foo.starred.snowbird.utils.safely
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.model.EntityModel
@@ -34,7 +34,7 @@ import java.io.File
 object CatModels : Module(RenderCategory.catModel) {
     private val set = CatVariant.all.map { it.name.lowercase() }
 
-    private val scribble = Scribble("texture")
+    private val scribble = JsonStore("texture")
     private var custom = scribble.mutableMap("custom", Codec.STRING, Codec.STRING)
 
     private val model by lazy {
@@ -133,20 +133,20 @@ object CatModels : Module(RenderCategory.catModel) {
     private fun fno(u: String, fn: String) {
         try {
             if (fn in set) {
-                val c = CatVariant.all.find { it.name.lowercase() == fn }?.identifier ?: return "Variant not found!".message()
+                val c = CatVariant.all.find { it.name.lowercase() == fn }?.identifier ?: return "Variant not found!".mod()
                 custom.update { put(u.lowercase(), "$c") }
 
-                return "Loaded texture for $u successfully! Change worlds for it to take effect.".message()
+                return "Loaded texture for $u successfully! Change worlds for it to take effect.".mod()
             }
 
             val f = File(FabricLoader.getInstance().configDir.toFile(), "jec/textures/$fn")
-            if (!f.exists()) return "No texture found at §c${f.path}§r!".message()
+            if (!f.exists()) return "No texture found at §c${f.path}§r!".mod()
 
             val r = Identifier.fromNamespaceAndPath(JEC.modId, fn)
             client.textureManager.register(r, DynamicTexture({ fn }, NativeImage.read(f.inputStream())))
 
             custom.update { put(u.lowercase(), "$r") }
-            "Loaded texture for $u successfully! Change worlds for it to take effect.".message()
+            "Loaded texture for $u successfully! Change worlds for it to take effect.".mod()
         } catch (e: Exception) {
             JEC.LOGGER.error("Error loading texture: ${e.message}")
         }

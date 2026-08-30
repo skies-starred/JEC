@@ -4,7 +4,7 @@ package foo.starred.jec.events.core
 
 import foo.starred.jec.events.GameEvent
 import foo.starred.jec.events.PacketEvent
-import foo.starred.snowbird.handlers.Observable
+import foo.starred.snowbird.api.data.Observable
 import net.minecraft.network.protocol.Packet
 
 inline fun <reified T : Event> on(

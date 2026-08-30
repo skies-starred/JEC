@@ -1,23 +1,19 @@
-package foo.starred.jec.handlers
+package foo.starred.jec.events.dispatcher
 
 import foo.starred.jec.annotations.Load
-import foo.starred.jec.events.*
-import foo.starred.jec.events.core.on
-import foo.starred.snowbird.api.mainThread
+import foo.starred.jec.events.EntityEvent
+import foo.starred.jec.events.GameEvent
+import foo.starred.jec.events.LocationEvent
+import foo.starred.jec.events.MessageEvent
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
-import net.minecraft.network.protocol.game.ClientboundSystemChatPacket
 
 @Load
-object EventDispatcher {
+object FabricEventDispatcher {
     init {
-        on<PacketEvent.Receive, ClientboundSystemChatPacket> {
-            if (!overlay) mainThread { MessageEvent.Chat.Receive(content).post() }
-        }
-
         ClientReceiveMessageEvents.ALLOW_GAME.register { component, _ ->
             !MessageEvent.Chat.Intercept(component).post()
         }
